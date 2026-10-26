@@ -1,6 +1,6 @@
 # TM Proxy
 
-**Made by Reza (R.S)**
+**Made by (R.S)**
 
 [English](#english) | [فارسی](#فارسی)
 
@@ -60,4 +60,4 @@ Classic and dd proxies are usually blocked in Iran; TM Proxy tests FakeTLS only 
 
 ---
 
-Made by **Reza (R.S)**
+Made by ** (R.S)**
