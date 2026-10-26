@@ -16,6 +16,8 @@
 
 ## فارسی
 
+ساخته شده توسط (R.S)
+
 **TM Proxy** آخرین پروکسی‌های تلگرام رو از ده‌ها منبع جمع می‌کنه، همه رو تست می‌کنه و فقط اون‌هایی رو **سالم** نشون می‌ده که واقعاً به تلگرام وصل می‌شن.
 
 ### تأیید از خود تلگرام
@@ -33,18 +35,22 @@
 ### وضعیت‌ها
 
 - 🟢 **سالم**: تلگرام از داخل پروکسی جواب داده.
-- 🟡 **مشکوک**: پروکسی جواب می‌ده ولی تلگرام از طریقش جواب نداده (یا وب پروکسی).
+- 🟡 **مشکوک**: پروکسی جواب می‌ده ولی تلگرام از طریقش جواب نداده، پینگش از حد انتخابی بیشتره، یا وب پروکسیه.
 - 🔴 **قطع**: جواب نمی‌ده، secret اشتباهه یا رد می‌شه.
 
 ### امکانات
 
-- بیش از ۷۰ منبع (گیت‌هاب، کانال‌های تلگرام، سایت‌ها) با آینه‌ها برای وقتی که گیت‌هاب فیلتره
+- ۱۰۰ منبع (گیت‌هاب، سایت‌ها، کانال‌های تلگرام و آینه‌هاشون) با آینه برای وقتی که گیت‌هاب فیلتره
+- منابع داخلی بله و ایتا که در نت ملی هم باز می‌شن (منبع داخلی خودت رو هم می‌تونی اضافه کنی)
 - سه حالت اسکن: **نت ملی**، **اینترنت ضعیف**، **اینترنت خوب**
-- تعداد اسکن ۵۰ / ۱۰۰ / ۳۰۰ / ۵۰۰ و تست هم‌زمان ۵ / ۱۰ / ۵۰ / ۱۰۰
+- پیدا کردن ۱۰۰ / ۵۰۰ / ۱۰۰۰ / ۲۰۰۰ پروکسی و تست هم‌زمان ۵ / ۱۰ / ۵۰ / ۱۰۰
+- حداکثر پینگ زیر ۳۰۰ / ۶۰۰ / ۱۰۰۰ / ۲۰۰۰ میلی‌ثانیه
+- زمان اتصال و تست ۶ / ۱۰ / ۱۵ / ۲۰ ثانیه
+- اسکن خودکار هر ۱۰ دقیقه / ۳۰ دقیقه / ۱ ساعت / ۱۲ ساعت
 - پیش‌فرض فقط FakeTLS (در ایران مقاوم‌ترین نوع در برابر فیلترینگ)
 - اتصال مستقیم به تلگرام با یک دکمه، با تست دوباره قبل از اتصال
 - نمایش IP، اپراتور، پینگ و سرعت
-- علاقه‌مندی‌ها، QR کد، کپی همه، خروجی TXT / CSV / HTML در پوشهٔ Download
+- علاقه‌مندی‌ها، QR کد، کپی همه، خروجی TXT / CSV در پوشهٔ Download
 
 ### نصب
 
@@ -86,18 +92,22 @@ A proxy counts as healthy only when the app sends a real Telegram request (`req_
 ### Statuses
 
 - 🟢 **Healthy**: Telegram replied through the proxy.
-- 🟡 **Suspect**: the proxy answers but Telegram did not reply through it (or it is a web proxy).
+- 🟡 **Suspect**: the proxy answers but Telegram did not reply through it, its ping is above your limit, or it is a web proxy.
 - 🔴 **Dead**: no answer, wrong secret, or rejected.
 
 ### Features
 
-- 70+ sources (GitHub, Telegram channels, websites) with mirrors for when GitHub is filtered
+- 100 sources (GitHub, websites, Telegram channels and their mirrors) with mirrors for when GitHub is filtered
+- Domestic Bale and Eitaa sources that still open on the national internet (you can add your own too)
 - Three scan modes: **national internet**, **weak internet**, **good internet**
-- Scan 50 / 100 / 300 / 500 proxies, with 5 / 10 / 50 / 100 parallel tests
+- Find 100 / 500 / 1000 / 2000 proxies, with 5 / 10 / 50 / 100 parallel tests
+- Max ping under 300 / 600 / 1000 / 2000 ms
+- Connection and test time of 6 / 10 / 15 / 20 seconds
+- Auto-scan every 10 min / 30 min / 1 hour / 12 hours
 - FakeTLS only by default (the type most resistant to filtering in Iran)
 - One-tap connect to Telegram, with a re-check right before connecting
 - Shows IP, operator, ping and speed
-- Favorites, QR codes, copy all, and TXT / CSV / HTML export to the Download folder
+- Favorites, QR codes, copy all, and TXT / CSV export to the Download folder
 
 ### Install
 
