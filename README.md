@@ -1,135 +1,185 @@
-<div align="center">
+# VPN Scan
 
-# TM Proxy
-
-**Made by (R.S)**
-
-[فارسی](#فارسی) · [English](#english)
-
-[![Download APK](https://img.shields.io/badge/Download-TM--Proxy.apk-1f5eff?style=for-the-badge)](../../releases/latest/download/TM-Proxy.apk)
-
-</div>
+**[فارسی](#فارسی) · [English](#english)**
 
 ---
-
-<div dir="rtl" id="فارسی">
 
 ## فارسی
 
-ساخته شده توسط (R.S)
+**VPN Scan** کانفیگ‌های رایگان V2Ray را از بیش از ۱۰۰ منبع جمع می‌کند. بعد آن‌ها را با **هستهٔ واقعی** همان برنامه‌ای که استفاده می‌کنی تست می‌کند. سرورهای سالم را با یک دکمه به **v2rayNG**، **V2Box**، **Hiddify** یا **NPV Tunnel** می‌فرستد.
 
-**TM Proxy** آخرین پروکسی‌های تلگرام رو از ده‌ها منبع جمع می‌کنه، همه رو تست می‌کنه و فقط اون‌هایی رو **سالم** نشون می‌ده که واقعاً به تلگرام وصل می‌شن.
+### 📥 دانلود
+آخرین نسخه را از بخش [Releases](../../releases/latest) دانلود کن (فایل `VPN-Scan.apk`).
+اندروید ۸ به بالا لازم است. هسته‌های Xray 25 و sing-box فقط روی گوشی‌های ۶۴ بیتی کار می‌کنند، یعنی تقریباً همهٔ گوشی‌های امروزی.
 
-### تأیید از خود تلگرام
+### ✨ امکانات
 
-پروکسی فقط وقتی سالم حساب می‌شه که اپ از داخل اون پروکسی یه درخواست واقعی تلگرام (`req_pq_multi`) بفرسته و **سرور تلگرام** جواب درست (`resPQ` با همون nonce) بده. پروکسی‌ای که فقط ادعای اتصال کنه سالم حساب نمی‌شه.
+**🧪 تست با سه هسته**
 
-| نوع | تست |
-|---|---|
-| **FakeTLS** (secret با `ee`) | handshake کامل TLS و بررسی secret، بعد جواب تلگرام |
-| **dd** | لایهٔ obfuscated2 با secret، بعد جواب تلگرام |
-| **کلاسیک** | لایهٔ obfuscated2 با secret، بعد جواب تلگرام |
-| **SOCKS5** | CONNECT به سرور تلگرام، بعد جواب تلگرام |
-| **WEB Proxy** | فقط بالا بودن سایت HTTPS. secret این نوع رو فقط خود اپ تلگرام می‌سنجه، پس هیچ‌وقت «سالم» نشون داده نمی‌شه |
+| هسته | نسخه | برای برنامهٔ |
+|---|---|---|
+| Xray | 26.10.21 | v2rayNG · V2Box |
+| Xray | 25.10.15 | NPV Tunnel |
+| sing-box | 1.14.4 | Hiddify |
 
-### وضعیت‌ها
+- یکی، چندتا یا هر سه هسته را می‌شود انتخاب کرد (گزینهٔ «همه»).
+- زیر هر سرور معلوم است با کدام برنامه سالم بوده: ✓ سالم، خط‌خورده یعنی وصل نشد، «—» یعنی آن هسته این نوع کانفیگ را پشتیبانی نمی‌کند.
+- تست واقعی است: دو درخواست واقعی از داخل خود کانفیگ فرستاده می‌شود، نه فقط پینگ.
 
-- 🟢 **سالم**: تلگرام از داخل پروکسی جواب داده.
-- 🟡 **مشکوک**: پروکسی جواب می‌ده ولی تلگرام از طریقش جواب نداده، پینگش از حد انتخابی بیشتره، یا وب پروکسیه.
-- 🔴 **قطع**: جواب نمی‌ده، secret اشتباهه یا رد می‌شه.
+**➕ افزودن به برنامه‌ها**
+- چهار دکمه: v2rayNG، V2Box، Hiddify و NPV Tunnel.
+- هر دکمه فقط سرورهایی را می‌فرستد که با هستهٔ همان برنامه سالم بوده‌اند. تعدادشان روی دکمه نوشته شده.
+- v2rayNG کانفیگ‌ها را مستقیم می‌گیرد. برای بقیه، لینک‌ها کپی می‌شوند و برنامه باز می‌شود؛ آنجا «افزودن از کلیپ‌بورد» را بزن.
+- نام سرورهای سالم به شکل R.S 1، R.S 2 و … شماره‌گذاری می‌شود و پرچم کشور سرور کنارش می‌آید (🇩🇪 R.S 1). سرورهای پشت CDN علامت ☁️ می‌گیرند.
 
-### امکانات
+**📦 خروجی ساب**
+- همهٔ سرورهای سالم هر برنامه یک‌جا: کپی ساب (Base64)، کپی لینک‌ها یا ذخیرهٔ فایل ساب.
+- لینک ساب داخلی (`http://127.0.0.1:…`) که یک بار در v2rayNG، Hiddify، V2Box یا NPV اضافه می‌شود و با «به‌روزرسانی ساب» تازه می‌شود. این لینک فقط وقتی VPN Scan باز است کار می‌کند.
 
-- ۱۰۰ منبع (گیت‌هاب، سایت‌ها، کانال‌های تلگرام و آینه‌هاشون) با آینه برای وقتی که گیت‌هاب فیلتره
-- منابع داخلی بله و ایتا که در نت ملی هم باز می‌شن (منبع داخلی خودت رو هم می‌تونی اضافه کنی)
-- سه حالت اسکن: **نت ملی**، **اینترنت ضعیف**، **اینترنت خوب**
-- پیدا کردن ۱۰۰ / ۵۰۰ / ۱۰۰۰ / ۲۰۰۰ پروکسی و تست هم‌زمان ۵ / ۱۰ / ۵۰ / ۱۰۰
-- حداکثر پینگ زیر ۳۰۰ / ۶۰۰ / ۱۰۰۰ / ۲۰۰۰ میلی‌ثانیه
-- زمان اتصال و تست ۶ / ۱۰ / ۱۵ / ۲۰ ثانیه
-- اسکن خودکار هر ۱۰ دقیقه / ۳۰ دقیقه / ۱ ساعت / ۱۲ ساعت
-- پیش‌فرض فقط FakeTLS (در ایران مقاوم‌ترین نوع در برابر فیلترینگ)
-- اتصال مستقیم به تلگرام با یک دکمه، با تست دوباره قبل از اتصال
-- نمایش IP، اپراتور، پینگ و سرعت
-- علاقه‌مندی‌ها، QR کد، کپی همه، خروجی TXT / CSV در پوشهٔ Download
+**✂️ فرگمنت TLS**
+- کانفیگ‌هایی که در دست‌دادن TLS قطع می‌شوند، یک بار هم با فرگمنت تست می‌شوند.
+- اگر با فرگمنت سالم شدند، علامت ✂ می‌گیرند. برای استفاده، فرگمنت را در برنامهٔ VPN روشن کن: `packets: tlshello · length: 10-20 · interval: 10-20`.
 
-### نصب
+**🌍 تست باز شدن سایت‌ها**
+- برای هر سرور سالم بررسی می‌شود که گوگل، یوتیوب، اینستاگرام و تلگرام باز می‌شوند یا نه.
+- با فیلتر «فقط سرورهایی که باز می‌کنند» لیست، دکمه‌ها و ساب فقط همان سرورها را نشان می‌دهند.
 
-1. فایل [TM-Proxy.apk](../../releases/latest/download/TM-Proxy.apk) رو دانلود کن.
-2. نصب از منابع ناشناس رو اجازه بده و نصبش کن.
-3. **اسکن** رو بزن، بعد روی یکی از پروکسی‌های سالم **اتصال** رو بزن.
+**📝 کانفیگ‌های دستی**
+- یک یا چند کانفیگ، لینک ساب یا کانال داخلی را بچسبان یا از فایل TXT بده.
+- دکمهٔ «فقط همین‌ها را تست کن»، یا همراه اسکن معمولی.
 
-### ساخت از سورس
+**🌐 پروتکل‌ها**
+VLESS (با REALITY و Vision) · VMess · Trojan · Shadowsocks · Hysteria2 · Hysteria · TUIC · AnyTLS · WireGuard · SOCKS
 
-APK به‌صورت خودکار با GitHub Actions ساخته می‌شه. کافیه `rs-apk-src.zip` رو آپلود کنی. بعد از تیک سبز، نسخهٔ جدید در بخش Releases قرار می‌گیره.
+**📡 وضعیت اینترنت و حالت‌های اسکن**
+- برنامه اپراتور، IP، موقعیت، پینگ و سرعت اینترنت را نشان می‌دهد.
+- اسکن متناسب با وضعیت نت انجام می‌شود:
+  - **خودکار**
+  - **نت ملی:** فقط سرورهای داخل ایران.
+  - **نت ضعیف**
+  - **نت خوب**
 
-### نکته‌ها
+**☁️ IP تمیز کلودفلر**
+- اگر IP کانفیگی که پشت کلودفلر است فیلتر باشد، برنامه با IP تمیز دوباره تستش می‌کند و لینک را با همان IP می‌سازد.
+- IP تمیز را خود برنامه پیدا می‌کند. فهرست IP خودت را هم می‌توانی بدهی، با چسباندن متن یا فایل TXT.
 
-- در قطعی کامل اینترنت هیچ پروکسی‌ای کار نمی‌کنه. در نت ملی شانس با پروکسی‌های داخلی بیشتره.
-- پروکسی‌ها مال افراد دیگه‌ان. اطلاعات حساس رو با احتیاط بفرست.
+**⚙️ تنظیمات**
+- تعداد سرور سالم: ۱۰، ۳۰، ۵۰ یا ۱۰۰.
+- حداکثر تأخیر: زیر ۵۰۰ تا زیر ۵۰۰۰ میلی‌ثانیه.
+- تعداد تست هم‌زمان.
+- پینگ سریع TCP برای کنار گذاشتن سرورهای خاموش.
+- منابع عمومی.
+- دکمهٔ بازگشت به تنظیمات پیش‌فرض.
 
-</div>
+**🔁 و بیشتر**
+- تست دوبارهٔ سالم‌ها و حذف سرورهای قطع‌شده.
+- QR کد، کپی، اشتراک‌گذاری و ذخیرهٔ لیست.
+- لاگ برنامه با دلیل رد شدن کانفیگ‌ها، جدا برای هر هسته.
+- به‌روزرسانی از داخل برنامه با نوار پیشرفت.
+- دو زبانهٔ فارسی و English.
+- تم تیره، روشن (آبی کم‌رنگ) یا خودکار هم‌رنگ گوشی.
+
+### 📖 روش استفاده
+۱. برنامه را باز کن و صبر کن وضعیت اینترنت مشخص شود.
+۲. هسته‌ها و پروتکل‌ها را انتخاب کن. برای سرعت بیشتر، فقط هستهٔ برنامه‌ای را که استفاده می‌کنی بزن.
+۳. **شروع اسکن V2Ray** را بزن.
+۴. در پایان، دکمهٔ برنامه‌ات را بزن، مثلاً «➕ Hiddify».
+
+### ⚠️ نکته‌ها
+- کانفیگ‌ها از منابع عمومی‌اند و هر لحظه ممکن است قطع شوند. هر چند وقت یک‌بار «تست دوباره» بزن.
+- با «همه» هر کانفیگ با سه هسته تست می‌شود، پس اسکن کندتر است.
+- VLESS و Trojan بدون TLS در هستهٔ جدید Xray (و v2rayNG جدید) کار نمی‌کنند. ولی با NPV Tunnel و Hiddify ممکن است کار کنند.
 
 ---
-
-<div id="english">
 
 ## English
 
-**TM Proxy** collects the latest Telegram proxies from dozens of sources, tests every one, and marks as **healthy** only the ones that really reach Telegram.
+**VPN Scan** collects free V2Ray configs from 100+ sources. It tests each one with the **real core** used by your VPN app. Working servers go to **v2rayNG**, **V2Box**, **Hiddify** or **NPV Tunnel** with one tap.
 
-### Confirmed by Telegram itself
+### 📥 Download
+Get the latest `VPN-Scan.apk` from [Releases](../../releases/latest).
+Requires Android 8+. The Xray 25 and sing-box cores run only on 64-bit phones, which covers almost every modern phone.
 
-A proxy counts as healthy only when the app sends a real Telegram request (`req_pq_multi`) through it and the **Telegram server** answers correctly (`resPQ` with the same nonce). A proxy that only claims to be connected is never counted as healthy.
+### ✨ Features
 
-| Type | Test |
-|---|---|
-| **FakeTLS** (`ee` secret) | Full TLS handshake and secret check, then a Telegram reply |
-| **dd** | obfuscated2 layer with the secret, then a Telegram reply |
-| **Classic** | obfuscated2 layer with the secret, then a Telegram reply |
-| **SOCKS5** | CONNECT to a Telegram server, then a Telegram reply |
-| **WEB Proxy** | Only checks that the HTTPS site is up. Only the Telegram app can check this type's secret, so it is never shown as healthy |
+**🧪 Tests with three cores**
 
-### Statuses
+| Core | Version | Used by |
+|---|---|---|
+| Xray | 26.10.21 | v2rayNG · V2Box |
+| Xray | 25.10.15 | NPV Tunnel |
+| sing-box | 1.14.4 | Hiddify |
 
-- 🟢 **Healthy**: Telegram replied through the proxy.
-- 🟡 **Suspect**: the proxy answers but Telegram did not reply through it, its ping is above your limit, or it is a web proxy.
-- 🔴 **Dead**: no answer, wrong secret, or rejected.
+- Pick one core, several, or **All**.
+- Each server shows which apps it works in: ✓ works, struck through = failed, "—" = that core doesn't support this config type.
+- Each test sends two real requests through the config itself, not just a ping.
 
-### Features
+**➕ Add to your app**
+- Four buttons: v2rayNG, V2Box, Hiddify and NPV Tunnel.
+- Each button sends only the servers that passed that app's core, and shows how many there are.
+- v2rayNG imports the configs directly. For the other apps, the links are copied and the app opens; tap "Add from clipboard" there.
+- Working servers are numbered R.S 1, R.S 2, … with the server's country flag (🇩🇪 R.S 1). Servers behind a CDN get ☁️.
 
-- 100 sources (GitHub, websites, Telegram channels and their mirrors) with mirrors for when GitHub is filtered
-- Domestic Bale and Eitaa sources that still open on the national internet (you can add your own too)
-- Three scan modes: **national internet**, **weak internet**, **good internet**
-- Find 100 / 500 / 1000 / 2000 proxies, with 5 / 10 / 50 / 100 parallel tests
-- Max ping under 300 / 600 / 1000 / 2000 ms
-- Connection and test time of 6 / 10 / 15 / 20 seconds
-- Auto-scan every 10 min / 30 min / 1 hour / 12 hours
-- FakeTLS only by default (the type most resistant to filtering in Iran)
-- One-tap connect to Telegram, with a re-check right before connecting
-- Shows IP, operator, ping and speed
-- Favorites, QR codes, copy all, and TXT / CSV export to the Download folder
+**📦 Subscription export**
+- All working servers for each app in one place: copy as a Base64 subscription, copy the links, or save a subscription file.
+- A local subscription link (`http://127.0.0.1:…`) you add once to v2rayNG, Hiddify, V2Box or NPV and refresh with "Update subscription". It only works while VPN Scan is open.
 
-### Install
+**✂️ TLS fragment**
+- Configs that fail the TLS handshake are retested once with fragmentation.
+- If they pass, they get a ✂ mark. To use them, turn on fragment in your VPN app: `packets: tlshello · length: 10-20 · interval: 10-20`.
 
-1. Download [TM-Proxy.apk](../../releases/latest/download/TM-Proxy.apk).
-2. Allow installing from unknown sources and install it.
-3. Tap **Scan**, then tap **Connect** on a healthy proxy.
+**🌍 Site access test**
+- Each working server is checked for Google, YouTube, Instagram and Telegram.
+- The "Only servers that open" filter limits the list, the buttons and the subscription to those servers.
 
-### Build from source
+**📝 Manual configs**
+- Paste one or more configs, subscription links or domestic channels, or load a TXT file.
+- Use "Test only these", or include them in normal scans.
 
-GitHub Actions builds the APK automatically. Upload `rs-apk-src.zip`, and after the green check the new version appears under Releases.
+**🌐 Protocols**
+VLESS (incl. REALITY & Vision) · VMess · Trojan · Shadowsocks · Hysteria2 · Hysteria · TUIC · AnyTLS · WireGuard · SOCKS
 
-### Notes
+**📡 Network status & scan modes**
+- The app shows your operator, IP, location, ping and speed.
+- The scan adapts to your network:
+  - **Auto**
+  - **National network:** Iranian servers only.
+  - **Weak**
+  - **Good**
 
-- In a full internet shutdown no proxy can work. On the national internet, domestic proxies have a better chance.
-- Proxies are run by third parties. Be careful with sensitive data.
+**☁️ Clean Cloudflare IPs**
+- If a Cloudflare-fronted config's IP is filtered, the app retests it through a clean IP and rewrites the link to use that IP.
+- The app finds clean IPs automatically. You can also give it your own list, by pasting it or loading a TXT file.
 
-</div>
+**⚙️ Settings**
+- Number of working servers: 10, 30, 50 or 100.
+- Maximum delay: under 500 to under 5000 ms.
+- Number of concurrent tests.
+- Fast TCP pre-check to skip dead servers.
+- Public sources.
+- One-tap reset to defaults.
+
+**🔁 More**
+- Retest working servers and drop the dead ones.
+- QR code, copy, share and save the list.
+- App log with the reasons configs were rejected, per core.
+- In-app updates with a progress bar.
+- Persian and English.
+- Dark, light (pale blue) or automatic theme that follows the phone.
+
+### 📖 How to use
+1. Open the app and wait for the network status to load.
+2. Choose cores and protocols. For a faster scan, select only your app's core.
+3. Tap **Start V2Ray scan**.
+4. When it finishes, tap your app's button, e.g. "➕ Hiddify".
+
+### ⚠️ Notes
+- Configs come from public sources and can stop working at any time. Use "Retest" now and then.
+- Testing with **All** cores is slower, because each config is tested three times.
+- VLESS/Trojan configs without TLS don't work in the new Xray core (or recent v2rayNG). They may still work in NPV Tunnel and Hiddify.
 
 ---
 
-<div align="center">
+Country data: GeoLite2 by MaxMind (CC BY-SA 4.0), via the v2fly geoip list bundled with Xray.
 
-**Made by (R.S)**
-
-</div>
+Made by **R.S** · [RS01RS](https://github.com/RS01RS)
