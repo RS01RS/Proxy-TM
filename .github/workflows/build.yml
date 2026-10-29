@@ -2,6 +2,8 @@ name: Build TM Proxy APK
 
 on:
   push:
+    paths-ignore:
+      - 'README.md'
   workflow_dispatch:
 
 permissions:
@@ -16,12 +18,7 @@ jobs:
       - name: Unpack source
         run: |
           mkdir -p src
-          if [ -f rs-apk-src.zip ]; then
-            unzip -o -q rs-apk-src.zip -d src
-          else
-            cp -r app settings.gradle build.gradle gradle.properties src/
-          fi
-          ls -R src | head -40
+          if [ -f rs-apk-src.zip ]; then unzip -o -q rs-apk-src.zip -d src; else cp -r source/. src/; fi
 
       - uses: actions/setup-java@v4
         with:
@@ -31,6 +28,12 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.9'
+
+      # Go برای ساخت موتورهای تونل DNS و thefeed از سورس اصلی‌شان
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.26'
+          cache: false
 
       - name: Build APK
         working-directory: src
