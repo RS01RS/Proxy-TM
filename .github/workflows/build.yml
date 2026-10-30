@@ -59,7 +59,14 @@ jobs:
           cp "$SRC/app/build/outputs/bundle/playRelease/app-play-release.aab" TM-Proxy-play.aab
           rm -rf "$SRC"
           gh release create "v${{ github.run_number }}" \
-            TM-Proxy-universal.apk TM-Proxy-arm64.apk TM-Proxy-arm32.apk TM-Proxy-play.aab \
+            TM-Proxy-universal.apk TM-Proxy-arm64.apk TM-Proxy-arm32.apk \
             --title "TM Proxy v${{ github.run_number }}" \
-            --notes "Made by (R.S) · اگر نمی‌دانی گوشی‌ات چیست، TM-Proxy-universal.apk را دانلود و نصب کن (روی همهٔ گوشی‌ها کار می‌کند). گوشی‌های جدید: TM-Proxy-arm64.apk (کوچک‌تر) · گوشی‌های قدیمی ۳۲ بیتی: TM-Proxy-arm32.apk · فایل TM-Proxy-play.aab برای آپلود در گوگل پلی است." \
+            --notes "Made by (R.S) · اگر نمی‌دانی گوشی‌ات چیست، TM-Proxy-universal.apk را دانلود و نصب کن (روی همهٔ گوشی‌ها کار می‌کند). گوشی‌های جدید: TM-Proxy-arm64.apk (کوچک‌تر) · گوشی‌های قدیمی ۳۲ بیتی: TM-Proxy-arm32.apk" \
             --repo "${{ github.repository }}"
+
+      - name: Upload AAB (owner only, not public)
+        uses: actions/upload-artifact@v4
+        with:
+          name: TM-Proxy-play-aab
+          path: TM-Proxy-play.aab
+          retention-days: 90
