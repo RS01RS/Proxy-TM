@@ -52,10 +52,14 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          cp "$SRC/app/build/outputs/apk/github/release/app-github-release.apk" TM-Proxy.apk
+          A="$SRC/app/build/outputs/apk/github/release"
+          cp "$A/app-github-universal-release.apk" TM-Proxy-universal.apk
+          cp "$A/app-github-arm64-v8a-release.apk" TM-Proxy-arm64.apk
+          cp "$A/app-github-armeabi-v7a-release.apk" TM-Proxy-arm32.apk
           cp "$SRC/app/build/outputs/bundle/playRelease/app-play-release.aab" TM-Proxy-play.aab
           rm -rf "$SRC"
-          gh release create "v${{ github.run_number }}" TM-Proxy.apk TM-Proxy-play.aab \
+          gh release create "v${{ github.run_number }}" \
+            TM-Proxy-universal.apk TM-Proxy-arm64.apk TM-Proxy-arm32.apk TM-Proxy-play.aab \
             --title "TM Proxy v${{ github.run_number }}" \
-            --notes "Made by Reza (R.S) · فایل TM-Proxy.apk را دانلود و نصب کن. فایل TM-Proxy-play.aab برای آپلود در گوگل پلی است." \
+            --notes "Made by (R.S) · اگر نمی‌دانی گوشی‌ات چیست، TM-Proxy-universal.apk را دانلود و نصب کن (روی همهٔ گوشی‌ها کار می‌کند). گوشی‌های جدید: TM-Proxy-arm64.apk (کوچک‌تر) · گوشی‌های قدیمی ۳۲ بیتی: TM-Proxy-arm32.apk · فایل TM-Proxy-play.aab برای آپلود در گوگل پلی است." \
             --repo "${{ github.repository }}"
