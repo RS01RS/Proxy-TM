@@ -1,0 +1,61 @@
+name: Build TM Proxy
+
+on:
+  push:
+    paths:
+      - 'source.enc'
+      - '.github/workflows/build.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # سورس رمزدار است؛ رمز فقط در Settings → Secrets → Actions با اسم SRC_PASS ذخیره می‌شود
+      - name: Decrypt source
+        env:
+          SRC_PASS: ${{ secrets.SRC_PASS }}
+        run: |
+          if [ -z "$SRC_PASS" ]; then echo "::error::Secret SRC_PASS is not set"; exit 1; fi
+          mkdir -p "$RUNNER_TEMP/src"
+          openssl enc -d -aes-256-cbc -pbkdf2 -iter 200000 -in source.enc -out "$RUNNER_TEMP/src.zip" -pass env:SRC_PASS
+          unzip -q "$RUNNER_TEMP/src.zip" -d "$RUNNER_TEMP/src"
+          rm -f "$RUNNER_TEMP/src.zip"
+          echo "SRC=$RUNNER_TEMP/src" >> "$GITHUB_ENV"
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+
+      # Go برای ساخت موتورهای تونل DNS و thefeed از سورس اصلی‌شان
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.26'
+          cache: false
+
+      # نسخهٔ github = فایل APK برای دانلود مستقیم · نسخهٔ play = فایل AAB برای آپلود در گوگل پلی
+      # هر دو با R8 مبهم (کوچک‌سازی و تغییرنام کد جاوا) ساخته می‌شوند
+      - name: Build (obfuscated release)
+        run: cd "$SRC" && gradle assembleGithubRelease bundlePlayRelease --no-daemon --stacktrace
+
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cp "$SRC/app/build/outputs/apk/github/release/app-github-release.apk" TM-Proxy.apk
+          cp "$SRC/app/build/outputs/bundle/playRelease/app-play-release.aab" TM-Proxy-play.aab
+          rm -rf "$SRC"
+          gh release create "v${{ github.run_number }}" TM-Proxy.apk TM-Proxy-play.aab \
+            --title "TM Proxy v${{ github.run_number }}" \
+            --notes "Made by Reza (R.S) · فایل TM-Proxy.apk را دانلود و نصب کن. فایل TM-Proxy-play.aab برای آپلود در گوگل پلی است." \
+            --repo "${{ github.repository }}"
