@@ -1,9 +1,10 @@
-name: Build TM Proxy APK
+name: Build TM Proxy
 
 on:
   push:
-    paths-ignore:
-      - 'README.md'
+    paths:
+      - 'rs-apk-src.zip'
+      - '.github/workflows/build.yml'
   workflow_dispatch:
 
 permissions:
@@ -17,8 +18,9 @@ jobs:
 
       - name: Unpack source
         run: |
-          mkdir -p src
-          if [ -f rs-apk-src.zip ]; then unzip -o -q rs-apk-src.zip -d src; else cp -r source/. src/; fi
+          mkdir -p "$RUNNER_TEMP/src"
+          unzip -o -q rs-apk-src.zip -d "$RUNNER_TEMP/src"
+          echo "SRC=$RUNNER_TEMP/src" >> "$GITHUB_ENV"
 
       - uses: actions/setup-java@v4
         with:
@@ -35,21 +37,17 @@ jobs:
           go-version: '1.26'
           cache: false
 
-      - name: Build APK
-        working-directory: src
-        run: gradle assembleDebug --no-daemon --stacktrace
+      # نسخهٔ github = APK برای نصب مستقیم · نسخهٔ play = AAB برای گوگل پلی (هر دو با کد مبهم R8)
+      - name: Build (obfuscated release)
+        run: cd "$SRC" && gradle assembleGithubRelease bundlePlayRelease --no-daemon --stacktrace
 
       - name: Publish release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          cp src/app/build/outputs/apk/debug/app-debug.apk TM-Proxy.apk
-          gh release create "v${{ github.run_number }}" TM-Proxy.apk \
+          cp "$SRC/app/build/outputs/apk/github/release/app-github-release.apk" TM-Proxy.apk
+          cp "$SRC/app/build/outputs/bundle/playRelease/app-play-release.aab" TM-Proxy-play.aab
+          gh release create "v${{ github.run_number }}" TM-Proxy.apk TM-Proxy-play.aab \
             --title "TM Proxy v${{ github.run_number }}" \
-            --notes "Made by Reza (R.S) - download TM-Proxy.apk and install." \
+            --notes "Made by Reza (R.S) · فایل TM-Proxy.apk را دانلود و نصب کن. فایل TM-Proxy-play.aab برای گوگل پلی است." \
             --repo "${{ github.repository }}"
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: TM-Proxy-apk
-          path: TM-Proxy.apk
